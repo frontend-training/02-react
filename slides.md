@@ -293,7 +293,7 @@ class ErrorBoundary extends React.Component {
 
 # Usage of an Error Boundary Component
 
-```JavaScript
+```html
 <ErrorBoundary>
   <MyWidget />
 </ErrorBoundary>
