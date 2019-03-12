@@ -182,10 +182,33 @@ const Greeter = (props): JSX.Element => (
 
 # Nested Components
 
+In JSX expressions that contain both an opening tag and a closing tag, the content between those tags is passed as a special prop:
+
+`props.children`
+
 ---
 
-# Error Boundaries
+# Example of a Nested Component
 
+```JavaScript
+const Page = (props): JSX.Element => (
+  <>
+    <h1>My Website</h1>
+    <div>
+      {this.props.children}
+    </div>
+  </>
+)
+```
+
+Can be consumed as:
+
+```html
+<Page>
+  <div>My Content</div>
+</Page>
+
+```
 ---
 
 # Thinking in React
