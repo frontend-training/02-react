@@ -210,3 +210,8 @@ body {
 .astronaut-list {
     margin: 50px;
 }
+
+.astronaut-list h1 {
+    color: white;
+    text-transform: uppercase;
+}
