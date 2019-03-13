@@ -1,41 +1,44 @@
 import * as React from 'react';
 import './App.css';
+import {Astronaut} from './components/astronaut-row';
+import AstronautList from "./components/AstronautList";
+import Space from './components/space';
 
-class App extends React.Component {
+interface State {
+    astronauts: Astronaut[];
+    loading: boolean
+}
+
+class App extends React.Component<any, State> {
+
+    constructor(props: any) {
+        super(props);
+        this.state = {
+            astronauts: [],
+            loading: true
+        }
+    }
+
+    componentDidMount(): void {
+        fetch("http://api.open-notify.org/astros.json")
+            .then(response => response.json())
+            .then(result => this.setState({astronauts: result.people, loading: false}))
+    }
+
     public render() {
         return (
-            <>
+            <Space>
                 <div className="astronaut-list">
                     <h1>Astronauts in Space</h1>
-                    <ul className="list-group mb-3 col-md-3">
-                        <li className="list-group-item d-flex justify-content-between lh-condensed">
-                            <div>
-                                <h6 className="my-0">Oleg Kononenko</h6>
-                                <small className="text-muted">ISS</small>
-                            </div>
-                        </li>
-                        <li className="list-group-item d-flex justify-content-between lh-condensed">
-                            <div>
-                                <h6 className="my-0">David Saint-Jacques</h6>
-                                <small className="text-muted">ISS</small>
-                            </div>
-                        </li>
-                        <li className="list-group-item d-flex justify-content-between lh-condensed">
-                            <div>
-                                <h6 className="my-0">Anne McClain</h6>
-                                <small className="text-muted">ISS</small>
-                            </div>
-                        </li>
-                    </ul>
+                    {this.state.loading && <h3>Loading...</h3>}
+                    {!this.state.loading && (
+                        <AstronautList
+                            astronauts={this.state.astronauts}
+                        />
+                    )
+                    }
                 </div>
-
-                <div className="earth">
-                    <div className="earth-shadow"/>
-                </div>
-                <div className="moon"/>
-                <div className="stars"/>
-                <div className="stars-2"/>
-            </>
+            </Space>
         );
     }
 }
